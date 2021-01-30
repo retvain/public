@@ -3,23 +3,28 @@
 namespace Theory;
 
 class Application
-{ 
-   private $name = "nick";
-   private $environment;
+{
+    //private $handlers = [];
+    private $name;
+    private $environment;
 
-   public function setName($name) {
-       return $this->name;
-   }
+    public function __construct($name, $environment)
+    {
+        $this->name = $name;
+        $this->environment = $environment;
+    }
 
-   public function getName() {
-       return $this->name;
-   }
+    public function setName($name)
+    {
+        return $this->name = $name;
+    }
 
+    public function getName()
+    {
+        return $this->name;
+    }
 }
- 
+
 $app = new Application("name", "development");
 print_r($app->getName());
 print_r($app->setName("another name"));
- 
-
-?>

@@ -25,6 +25,9 @@ class Application
     }
 }
 
-$app = new Application("name", "development");
-print_r($app->getName());
-print_r($app->setName("another name"));
+function rtvn() {
+    $a = 'hi';
+    echo $a;
+}
+
+rtvn();

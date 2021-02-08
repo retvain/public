@@ -2,6 +2,8 @@
 
 namespace Theory;
 
+$id = $_GET['id'];
+echo "Мой id = $id </br>";
 
 
 class Application

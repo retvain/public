@@ -22,7 +22,7 @@ echo "<img src='img/$id.png'>" . "</br>" .
     "<a href='index.php?id=$id_prev'>Назад</a>" . " " . "<a href='index.php?id=$id_next'>Вперед</a>" . "</br>" . "</br>";
 
 var_dump($_POST);
-//print_r($_POST);
+print_r($_POST);
 
 
 

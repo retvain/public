@@ -2,6 +2,11 @@
 
 namespace Theory;
 
+$id = $_GET['id'];
+$id_next = $id+1;
+$id_prev = $id-1;
+echo "Мой id = $id </br>";
+
 
 
 class Application
@@ -27,9 +32,10 @@ class Application
     }
 }
 
-function rtvn() {
-    $a = 'hi';
-    echo $a;
-}
+$app = new Application("name", "development");
+print_r($app->getName());
+print_r($app->setName("another name"));
+?>
 
-rtvn();
+<a href="index.php?id=<?php echo $id_prev ?>">Назад</a> |
+<a href="index.php?id=<?php echo $id_next ?>">Вперед</a>

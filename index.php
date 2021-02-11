@@ -6,7 +6,7 @@ require_once ('database.class.php');
 $hostname = 'localhost';
 $username = 'username';
 $password = 'password';
-$dbName = 'database';
+$dbName = 'blog';
 
 //time settings
 date_default_timezone_set('Asia/Yekaterinburg');
@@ -31,8 +31,20 @@ mb_internal_encoding('UTF-8');
     print $e->getMessage();
 
 }*/
-mysqli_connect($hostname, $username, $password) or die ('no connection with DB');
-mysqli_query('SET NAMES utf8');
-mysqli_select_db($dbName) or die('No DATABASE');
+$link = mysqli_connect($hostname, $username, $password, $dbName) or die ('no connection with DB');
 
-$result = mysqli_query("SELECT * FROM blog_articles ORDER BY id_article");
+if (mysqli_connect_errno()) {
+    printf("Connecnt failed: %s\n", mysqli_connect_error());
+    exit();
+}
+
+//mysqli_query('SET NAMES utf8');
+//mysqli_select_db($dbName) or die('No DATABASE');
+//$result = mysqli_query("SELECT * FROM articles ORDER BY id_article");
+
+/* возвращаем имя текущей базы данных */
+if ($result = mysqli_query($link, "SELECT DATABASE()")) {
+    $row = mysqli_fetch_row($result);
+    printf("Default database is %s.\n", $row[0]);
+    mysqli_free_result($result);
+}

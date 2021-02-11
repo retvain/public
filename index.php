@@ -35,4 +35,4 @@ mysqli_connect($hostname, $username, $password) or die ('no connection with DB')
 mysqli_query('SET NAMES utf8');
 mysqli_select_db($dbName) or die('No DATABASE');
 
-$result = mysqli_query("SELECT * FROM blog_articles ORDER BY ")
+$result = mysqli_query("SELECT * FROM blog_articles ORDER BY id_article");

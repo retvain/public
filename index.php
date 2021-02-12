@@ -1,6 +1,7 @@
 <?php
 
 require_once ('database.class.php');
+phpinfo();
 
 //BD connect settings
 $hostname = 'localhost';
@@ -44,7 +45,8 @@ if (mysqli_connect_errno()) {
 
 /* возвращаем имя текущей базы данных */
 if ($result = mysqli_query($link, "SELECT DATABASE()")) {
-    $row = mysqli_fetch_row($result);
+    $row = mysqli_fetch_row($result); //в row формируем массив из $result
     printf("Default database is %s.\n", $row[0]);
-    mysqli_free_result($result);
+    mysqli_free_result($result); //освобождаем память
 }
+var_dump(mysqli_connect_errno());

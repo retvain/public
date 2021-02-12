@@ -1,6 +1,7 @@
 <?php
 
 require_once ('database.class.php');
+phpinfo();
 
 //BD connect settings
 $hostname = 'mysql';
@@ -28,4 +29,4 @@ if ($result = mysqli_query($link, "SELECT DATABASE()")) {
     $row = mysqli_fetch_row($result); //в row формируем массив из $result
     printf("Default database is %s.\n", $row[0]);
     mysqli_free_result($result); //освобождаем память
-}
+

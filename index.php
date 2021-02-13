@@ -1,3 +1,15 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <title>Мой блог</title>
+</head>
+<body>
+    <form action="edit1.php" method="post">Форма</form>
+    <fieldset></fieldset>
+
+
 <?php
 
 require_once('connect.php');
@@ -51,3 +63,5 @@ else
 mysqli_free_result($result); //освобождаем память
 mysqli_close($link);*/
 ?>
+</body>
+</html>

@@ -1,32 +1,53 @@
 <?php
 
-require_once ('database.class.php');
-phpinfo();
+require_once('connect.php');
 
-//BD connect settings
-$hostname = 'mysql';
-$username = 'username';
-$password = 'password';
-$dbName = 'blog';
-
-date_default_timezone_set('Asia/Yekaterinburg');
-setlocale(LC_ALL, 'ru_RU.UTF-8');
-mb_internal_encoding('UTF-8');
-
-$link = mysqli_connect($hostname, $username, $password, $dbName) or die ('no connection with DB');
-
-if (mysqli_connect_errno()) {
-    printf("Connecnt failed: %s\n", mysqli_connect_error());
-    exit();
-}
-
-//mysqli_query('SET NAMES utf8');
-//mysqli_select_db($dbName) or die('No DATABASE');
-//$result = mysqli_query("SELECT * FROM articles ORDER BY id_article");
-
-/* возвращаем имя текущей базы данных */
+//print schema name
 if ($result = mysqli_query($link, "SELECT DATABASE()")) {
     $row = mysqli_fetch_row($result); //в row формируем массив из $result
     printf("Default database is %s.\n", $row[0]);
     mysqli_free_result($result); //освобождаем память
+}
 
+//check get page
+if (isset($_GET['page']) and (int)$_GET['page'] != 0)
+    $page = (int)$_GET['page'];
+else $page = 1;
+if (!($page >= 1 and $page <= 3)) {
+    die ('sorry, 404');
+}
+
+$articles_per_page = 10;
+$skip = ($page - 1) * $articles_per_page;
+echo "<br> в skip сейчас: ";
+printf($skip);
+echo "<br> в articles_per_page сейчас: ";
+printf($articles_per_page);
+echo '<br>';
+$result = mysqli_query($link, "SELECT * FROM articles ORDER BY 
+                                id_article LIMIT $skip,$articles_per_page");
+//check $result !null
+if (!$result)
+    die ("DB error: " . mysqli_error());
+
+while ($row = mysqli_fetch_assoc($result)) {
+    echo $row['id_article'] . '<br>';
+    echo $row['title'] . '<br>';
+    echo $row['content'] . '<hr>';
+}
+mysqli_free_result($result); //освобождаем память
+$page_next = $page + 1;
+$page_prev = $page - 1;
+echo "<a href=index.php?page=$page_prev>Предыдущая страница</a> ";
+echo "<a href=index.php?page=$page_next>Следующая страница</a>";
+
+
+//Insert article
+/*$result = mysqli_query($link, "INSERT INTO articles (id_user, date_and_time, title, content) VALUES (1, current_timestamp(), 'название 4й статьи тест' , '4я Статья из тестового скрипта')");
+if ($result = true)
+    echo 'Статей добавлено: ' . mysqli_affected_rows($link) . ' id:' . mysqli_insert_id($link);
+else
+    die ("Соединение не удалось: " . mysqli_error($link));
+mysqli_free_result($result); //освобождаем память
+mysqli_close($link);*/
+?>

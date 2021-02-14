@@ -6,14 +6,18 @@
     <title>Мой блог</title>
 </head>
 <body>
-    <form action="edit1.php" method="post">Форма</form>
-    <fieldset></fieldset>
+<form action="edit1.php" method="post">Форма</form>
+<fieldset></fieldset>
+
+<h1>Сайт нужно доделать!</h1>
+<a href="jar/editor.php">Консоль редактора</a> <br> <br>
 
 
 <?php
 
-require_once('connect.php');
+require_once('startup.php');
 
+startup();
 //print schema name
 if ($result = mysqli_query($link, "SELECT DATABASE()")) {
     $row = mysqli_fetch_row($result); //в row формируем массив из $result
@@ -28,7 +32,6 @@ else $page = 1;
 if (!($page >= 1 and $page <= 3)) {
     die ('sorry, 404');
 }
-
 $articles_per_page = 10;
 $skip = ($page - 1) * $articles_per_page;
 echo "<br> в skip сейчас: ";
@@ -52,7 +55,6 @@ $page_next = $page + 1;
 $page_prev = $page - 1;
 echo "<a href=index.php?page=$page_prev>Предыдущая страница</a> ";
 echo "<a href=index.php?page=$page_next>Следующая страница</a>" . "<br>";
-
 
 
 //Insert article

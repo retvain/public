@@ -51,7 +51,8 @@ mysqli_free_result($result); //освобождаем память
 $page_next = $page + 1;
 $page_prev = $page - 1;
 echo "<a href=index.php?page=$page_prev>Предыдущая страница</a> ";
-echo "<a href=index.php?page=$page_next>Следующая страница</a>";
+echo "<a href=index.php?page=$page_next>Следующая страница</a>" . "<br>";
+
 
 
 //Insert article
@@ -63,5 +64,7 @@ else
 mysqli_free_result($result); //освобождаем память
 mysqli_close($link);*/
 ?>
+<a href="add.php">Добавить статью</a><br>
+<a href="select_delete.php">Удалить статью</a><br>
 </body>
 </html>

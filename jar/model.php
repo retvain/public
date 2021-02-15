@@ -15,8 +15,7 @@ function articles_all()
     $n = mysqli_num_rows($result);
     $articles = array();
 
-    for ($i = 0; $i < $n; $i++)
-    {
+    for ($i = 0; $i < $n; $i++) {
         $row = mysqli_fetch_assoc($result);
         $articles[] = $row;
     }
@@ -43,4 +42,32 @@ function articles_new($title, $content)
 
     //Запрос
     $t = "INSERT INTO articles (title, content) VALUES ('%s', '%s')";
+
+    $query = sprintf($t, mysqli_real_escape_string($title), mysqli_real_escape_string($content));
+
+    $result = mysqli_query($query);
+
+    //Проверка запроса
+    if (!$result)
+        die(mysqli_error());
+
+    return true;
+}
+
+//Изменить статью
+function articles_edit($id_article, $title, $content)
+{
+    //do it
+}
+
+//Удалить статью
+function articles_delete($id_article)
+{
+    //do it
+}
+
+//Короткое описание статьи
+function articles_intro($article)
+{
+    //$article - ассоциативный массив, который представляет статью
 }

@@ -1,4 +1,38 @@
-<!DOCTYPE HTML>
+<h1>мой портал</h1>
+<a href="jar/editor.php">Консоль редактора</a> <br> <br>
+<?php
+phpinfo();
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE HTML>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -9,12 +43,11 @@
 <form action="edit1.php" method="post">Форма</form>
 <fieldset></fieldset>
 
-<h1>Сайт нужно доделать!</h1>
-<a href="jar/editor.php">Консоль редактора</a> <br> <br>
+
 
 
 <?php
-
+/*
 require_once('startup.php');
 
 startup();
@@ -69,4 +102,4 @@ mysqli_close($link);*/
 <a href="add.php">Добавить статью</a><br>
 <a href="select_delete.php">Удалить статью</a><br>
 </body>
-</html>
+</html>-->

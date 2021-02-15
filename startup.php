@@ -1,6 +1,9 @@
 <?php
 
+
+
 function startup() {
+
 
 //BD connect settings
 $hostname = 'mysql';
@@ -18,4 +21,6 @@ mysqli_select_db($link, $dbName) or die('No database');
 
 //Start session
 //session_start();
+
+    return $link;
 }

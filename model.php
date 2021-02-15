@@ -1,8 +1,9 @@
 <?php
 
+
 //Список всех статей
 
-function articles_all()
+function articles_all($link)
 {
     //Запрос.
     $query = "SELECT * FROM articles ORDER BY id_article DESC";
@@ -31,7 +32,7 @@ function articles_get($id_article)
 }
 
 //Добавить статью
-function articles_new($title, $content)
+function articles_new($link, $title, $content)
 {
     //Подготовка
     $title = trim($title);
@@ -45,7 +46,7 @@ function articles_new($title, $content)
 
     $query = sprintf($t, mysqli_real_escape_string($title), mysqli_real_escape_string($content));
 
-    $result = mysqli_query($query);
+    $result = mysqli_query($link, $query);
 
     //Проверка запроса
     if (!$result)

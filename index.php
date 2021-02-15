@@ -1,6 +1,8 @@
 <h1>мой портал</h1>
-<a href="jar/editor.php">Консоль редактора</a> <br> <br>
+<a href="editor.php">Консоль редактора</a> <br> <br>
 <?php
+require_once  ('startup.php');
+
 
 ?>
 

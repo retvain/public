@@ -1,6 +1,6 @@
 <?php
 require_once ('startup.php');
-include_once ('jar/model.php');
+require_once ('model.php');
 
 //Подключение к БД
 startup();
@@ -8,9 +8,9 @@ startup();
 //Обработка отправки
 if (!empty($_POST))
 {
-    if (articles_new($_POST['title'], $_POST['contemt']))
+    if (articles_new($_POST['title'], $_POST['content']))
     {
-        header('Location: editor.php');
+        header('Location: jar/editor.php');
         die();
     }
 

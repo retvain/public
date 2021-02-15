@@ -38,7 +38,7 @@ function articles_new($title, $content)
     $content = trim($content);
 
     //Проверка
-    if ($title == '') return false;
+    if ($title == '' or $content == '') return false;
 
     //Запрос
     $t = "INSERT INTO articles (title, content) VALUES ('%s', '%s')";

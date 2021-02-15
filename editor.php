@@ -1,6 +1,6 @@
 <?php
 require_once('startup.php');
-require_once('jar/model.php');
+require_once('model.php');
 
 //Установим параметры, подключаемся к БД, запускаем сессию.
 startup();

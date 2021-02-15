@@ -1,7 +1,7 @@
 <h1>мой портал</h1>
 <a href="jar/editor.php">Консоль редактора</a> <br> <br>
 <?php
-phpinfo();
+
 ?>
 
 

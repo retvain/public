@@ -1,9 +1,6 @@
 <?php
 
-
-
 function startup() {
-
 
 //BD connect settings
 $hostname = 'mysql';

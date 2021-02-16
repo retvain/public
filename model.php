@@ -10,15 +10,14 @@ function articles_all($link)
     $result = mysqli_query($link, $query);
 
     if (!$result)
-        die(mysqli_error());
+        return (mysqli_error());
 
     //Извлечение из БД
     $n = mysqli_num_rows($result);
     $articles = array();
 
     for ($i = 0; $i < $n; $i++) {
-        $row = mysqli_fetch_assoc($result);
-        $articles[] = $row;
+        $articles[] = mysqli_fetch_assoc($result);
     }
 
     return $articles;
@@ -28,7 +27,12 @@ function articles_all($link)
 //Конкретная статья
 function articles_get($id_article)
 {
-    //do it
+    //защита от sql инъекции
+    $id_article = (int) $id_article;
+
+    if (isset($id_article)) {
+        $query = "SELECT * FROM articles WHERE id_article='$id_article' ";
+    }
 }
 
 //Добавить статью

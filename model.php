@@ -32,6 +32,9 @@ function articles_get($id_article)
 
     if (isset($id_article)) {
         $query = "SELECT * FROM articles WHERE id_article='$id_article' ";
+        if (mysqli_num_rows($query)) {
+            $result = mysqli_
+        }
     }
 }
 

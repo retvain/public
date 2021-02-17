@@ -3,7 +3,7 @@
 
 //Список всех статей
 
-function articles_all($link)
+function articles_get_all($link)
 {
     //Запрос.
     $query = "SELECT * FROM articles ORDER BY id_article DESC";
@@ -25,17 +25,19 @@ function articles_all($link)
 }
 
 //Конкретная статья
-function articles_get($id_article)
+function articles_get_by_id($link, $id_article)
 {
     //защита от sql инъекции
     $id_article = (int) $id_article;
+    $query = "SELECT * FROM articles WHERE id_article='$id_article' ";
+    $result = mysqli_query($link, $query);
 
-    if (isset($id_article)) {
-        $query = "SELECT * FROM articles WHERE id_article='$id_article' ";
-        if (mysqli_num_rows($query)) {
-            $result = mysqli_
-        }
-    }
+    //Проверка
+    if (!$result)
+        return mysqli_error();
+
+    return mysqli_fetch_assoc($result);
+
 }
 
 //Добавить статью
@@ -63,19 +65,46 @@ function articles_new($link, $title, $content)
 }
 
 //Изменить статью
-function articles_edit($id_article, $title, $content)
+function articles_edit($link, $id_article, $title, $content)
 {
-    //do it
+
+    //Защита
+    $id_article = (int) $id_article;
+    $title = mysqli_real_escape_string(trim($title));
+    $content = mysqli_real_escape_string(trim($content));
+
+    //Запрос
+    $t = "UPDATE articles SET (title, content) VALUES ('%s', '%s') WHERE id_article = '$id_article'";
+    $query = sprintf($t, $title, $content);
+    $result = mysqli_query($link, $query);
+
+    if (!$result)
+        return false;
+
+    else
+        return true;
+
 }
 
 //Удалить статью
-function articles_delete($id_article)
+function articles_delete($link, $id_article)
 {
-    //do it
+    //Защита
+    $id_article = (int) $id_article;
+
+    //Запрос
+    $query = "DELETE FROM articles WHERE id_articles = '$id_article'";
+    $result = mysqli_query($link, $query);
+
+    if (!$result)
+        return false;
+    else
+        return true;
 }
 
 //Короткое описание статьи
 function articles_intro($article)
 {
-    //$article - ассоциативный массив, который представляет статью
+    $article = mb_substr($article, 0, 200,'UTF-8');
+    return $article;
 }

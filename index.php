@@ -3,7 +3,6 @@
 <?php
 require_once  ('startup.php');
 
-
 ?>
 
 

@@ -20,13 +20,16 @@ content - содержимое статьи*/ ?>
 <ul>
     <li>
         <b>
-            <a href="new.php">Новая статья</a>
+            <a href="new.php">Новая статья <br></a>
         </b>
+
         <? foreach ($articles as $article) : ?>
+        <br>
     <li>
         <a href="edit.php?id=<?= $article['id_article'] ?>">
             <?= $article['title'] ?>
         </a>
+
     </li>
     <? endforeach; ?>
 </ul>

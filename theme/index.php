@@ -16,6 +16,9 @@ content - содержимое статьи*/ ?>
 <br>
 <b>Главная</b>
 <a href="editor.php">Консоль редактора</a>
+<hr>
+<br>
+
 <ul>
 
         <? foreach ($articles as $article) : ?>
@@ -28,5 +31,6 @@ content - содержимое статьи*/ ?>
     </li>
     <? endforeach; ?>
 </ul>
+<hr>
 </body>
 </html>

@@ -105,6 +105,6 @@ function articles_delete($link, $id_article)
 //Короткое описание статьи
 function articles_intro($article)
 {
-    $article = mb_substr($article, 0, 200,'UTF-8');
+    $article = mb_substr($article, 0, 28,'UTF-8');
     return $article;
 }

@@ -9,7 +9,7 @@ $link = startup();
 
 
 //Извлечение статей
-$articles = articles_all($link);
+$articles = articles_get_all($link);
 
 //Кодировка
 header('Content-type: text/html; charset=utf-8');

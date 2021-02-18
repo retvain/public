@@ -1,36 +1,17 @@
-<h1>мой портал</h1>
-<a href="editor.php">Консоль редактора</a> <br> <br>
 <?php
-require_once  ('startup.php');
+require_once('startup.php');
+require_once('model.php');
+$link = startup();
 
+if (isset($_GET['page']) and (int)$_GET['page'] != 0)
+    $page = (int)$_GET['page'];
+else $page = 1;
+
+
+$articles = articles_get_all($link);
+//Вывод в шаблон
+include('theme/index.php')
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!--<!DOCTYPE HTML>

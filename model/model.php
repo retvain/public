@@ -108,3 +108,18 @@ function articles_intro($article)
     $article = mb_substr($article, 0, 28,'UTF-8');
     return $article;
 }
+
+//Подключение шаблона
+function view_include($fileName, $vars = array())
+{
+    //Устанавливаем переменные
+    foreach ($vars as $key => $value) {
+        $$key = $value;
+
+    //Генерируем HTML в строку
+    ob_start();
+    include $fileName;
+    return ob_get_clean();
+    }
+
+}

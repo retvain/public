@@ -3,7 +3,7 @@
 class database {
     private $link;
 
-    private function __construct()
+    public function __construct()
     {
         $this->connect();
     }
@@ -17,20 +17,16 @@ class database {
         return $this;
     }
 
-    public function execute ($query)
+    public function execute_query ($query)
     {
         $str = $this->link->prepare($query);
 
-        return $str->execute();
-    }
+        $str->execute();
 
-    public function query ($query)
-    {
-        $prepeare_execute = $this->execute($query);
-        $result = $prepeare_execute->fetchAll(PDO::FETCH_ASSOC);
+        $result = $str->fetchAll(PDO::FETCH_ASSOC);
 
-        if (!$result) {
-            return [];
+        if ($result === false) {
+            return 'wtf';
         }
 
         return $result;
@@ -38,6 +34,9 @@ class database {
     }
 }
 
+$tmp = new database();
+$b = $tmp->execute_query("SELECT * FROM articles WHERE id_article = '1'");
+print_r($b);
 
 
 

@@ -4,6 +4,6 @@
         'db_name' => 'blog',
         'username' => 'username',
         'password' => 'password',
-        'charset' => 'utf-8'
+        'charset' => 'utf8'
     ];
 

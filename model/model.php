@@ -1,4 +1,64 @@
 <?php
+//PDO для работы с БД
+
+class database
+{
+    private $link;
+
+    public function __construct()
+    {
+        $this->connect();
+    }
+
+    public function connect()
+    {
+        $config = require_once('cfg/config.php');
+        $dsn = 'mysql:host=' . $config['host'] . ';dbname=' . $config['db_name'] . ';charset=' . $config['charset'];
+        $this->link = new PDO($dsn, $config['username'], $config['password']);
+
+        return $this;
+    }
+
+    public function execute_query($query)
+    {
+        $str = $this->link->prepare($query);
+
+        $str->execute();
+
+        $result = $str->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($result === false) {
+            return [];
+        }
+
+        return $result;
+
+    }
+}
+
+class Article
+{
+    protected $id;
+    public $title;
+    public $content;
+    protected $preview;
+
+    function Generate_article($id, $title, $content)
+    {
+        $this->id = $id;
+        $this->title = $title;
+        $this->content = $content;
+
+        $this->preview = mb_substr($content, 0, 7, 'utf-8');
+
+    }
+
+    
+    function view()
+    {
+        echo "<h2>$this->title</h2><br><h1>$this->preview</h1><br><p>$this->content</p><hr><br>";
+    }
+}
 
 
 //Список всех статей
@@ -28,7 +88,7 @@ function articles_get_all($link)
 function articles_get_by_id($link, $id_article)
 {
     //защита от sql инъекции
-    $id_article = (int) $id_article;
+    $id_article = (int)$id_article;
     $query = "SELECT * FROM articles WHERE id_article='$id_article' ";
     $result = mysqli_query($link, $query);
 
@@ -69,7 +129,7 @@ function articles_edit($link, $id_article, $title, $content)
 {
 
     //Защита
-    $id_article = (int) $id_article;
+    $id_article = (int)$id_article;
     $title = mysqli_real_escape_string(trim($title));
     $content = mysqli_real_escape_string(trim($content));
 
@@ -90,7 +150,7 @@ function articles_edit($link, $id_article, $title, $content)
 function articles_delete($link, $id_article)
 {
     //Защита
-    $id_article = (int) $id_article;
+    $id_article = (int)$id_article;
 
     //Запрос
     $query = "DELETE FROM articles WHERE id_articles = '$id_article'";
@@ -105,7 +165,7 @@ function articles_delete($link, $id_article)
 //Короткое описание статьи
 function articles_intro($article)
 {
-    $article = mb_substr($article, 0, 28,'UTF-8');
+    $article = mb_substr($article, 0, 28, 'UTF-8');
     return $article;
 }
 
@@ -116,10 +176,10 @@ function view_include($fileName, $vars = array())
     foreach ($vars as $key => $value) {
         $$key = $value;
 
-    //Генерируем HTML в строку
-    ob_start();
-    include $fileName;
-    return ob_get_clean();
+        //Генерируем HTML в строку
+        ob_start();
+        include $fileName;
+        return ob_get_clean();
     }
 
 }

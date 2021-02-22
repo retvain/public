@@ -34,9 +34,6 @@ class database {
     }
 }
 
-$tmp = new database();
-$b = $tmp->execute_query("SELECT * FROM articles WHERE id_article = '1'");
-print_r($b);
 
 
 

@@ -53,7 +53,11 @@ class Article
 
     }
 
-    
+    function __get($name)
+    {
+     echo 'опа, попался!';
+    }
+
     function view()
     {
         echo "<h2>$this->title</h2><br><h1>$this->preview</h1><br><p>$this->content</p><hr><br>";

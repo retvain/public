@@ -1,32 +1,58 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css" type="text/css">
-    <title>Вносим изменения</title>
-</head>
-<body>
-
 <?php
-require_once('connect.php');
-$id = (int)$_REQUEST['user'];
-$select_sql = "SELECT * FROM articles WHERE id= $id";
-$result = mysqli_query($select_sql);
-$row = mysqli_fetch_assoc($result);
-printf("<form action='update.php' method= 'post' name='forma'>
-<fieldset> <input type='hidden' name='id' value='%s'><br>
-<label for='name'>Имя:</label><br>
-<input type='text' name='name' size='30' value='%s'><br>
-<label for='title'>Название статьи:</label><br>
-<input type='text' name='title' size='60' value='%s'><br>
-<label for='text'>Ваша статья:</label><br>
-<input type='text' name='text' size='250' value='%s'><br>
-</fieldset> <br> <fieldset>
-<input id='submit' type='submit' value='Редактировать запись'><br>
-</fieldset> </form>", $row['id'], $row['name'], $row['title'], $row['text']);
-?>
-<a href="add.php">Добавить статью</a><br>
-<a href="index.php.php">Выернуться к выбору записей для редактирования</a><br>
-</body>
-</html>
+require_once ('model/c_base.php');
+$controller = new c_page();
+$controller->action_edit();
+$controller->render();
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*require_once('model/model.php');
+require_once('model/view.php');
+
+//Обработка отправки формы
+if (!empty($_POST)) {
+    $text = $_POST['text'];
+    text_set($text);
+    header('Location: index.php');
+    die();
+}
+
+//Название переменных
+$title = 'Название сайта :: Редактирование';
+$text = text_get();
+
+//Внутренний шаблон
+$content = view_include(
+    'templates/v_edit.php',
+    array('text' => $text)
+);
+
+//Внешний шаблон
+$page = view_include(
+    'templates/v_main.php',
+    array(
+        'title' => $title,
+        'content' => $content
+    )
+);
+
+//Вывод
+echo $page;*/

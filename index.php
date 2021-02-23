@@ -1,5 +1,6 @@
 <?php
 require_once ('model/c_page.php');
+require_once ('model/c_sidebar_page.php');
 
 $action = 'action_';
 $action .= (isset($_GET['act'])) ? $_GET['act'] : 'index';

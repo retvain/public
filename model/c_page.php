@@ -17,6 +17,12 @@ class c_page extends c_base
         $this->content = $this->Template('template/v_index.php', array('text' => $text));
     }
 
+    public function action_contacts()
+    {
+        $this->title .= '::обратная связь';
+        $this->content = "Наши контакты тут!";
+    }
+
     public function action_edit ()
     {
         $this->title .= '::редактирование';

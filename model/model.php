@@ -64,6 +64,18 @@ class Article
     }
 }
 
+//Функция чтения из файла
+function text_get()
+{
+    return file_get_contents('data/text.txt');
+}
+
+//Функция записи в файл
+function text_set($text)
+{
+    return file_put_contents('data/text.txt', $text);
+}
+
 
 //Список всех статей
 

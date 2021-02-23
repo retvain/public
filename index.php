@@ -1,8 +1,27 @@
 <?php
-require_once ('model/model.php');
-$controller = new c_page();
-$controller->action_index();
+require_once ('model/c_page.php');
+
+$action = 'action_';
+$action .= (isset($_GET['act'])) ? $_GET['act'] : 'index';
+
+switch ($_GET['act'])
+{
+    case 'contacts':
+        $controller = new c_page();
+        break;
+    case 'page':
+        $controller = new c_page();
+        break;
+    case 'edit':
+        $controller = new c_page();
+        break;
+    default:
+        $controller = new c_page();
+}
+
+$controller->$action();
 $controller->render();
+
 
 
 

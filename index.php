@@ -1,6 +1,11 @@
 <?php
-require_once ('model/c_page.php');
-require_once ('model/c_sidebar_page.php');
+
+//Автоподгрузка файлов с классами
+spl_autoload_register(function ($name)
+{
+    require_once ("model/$name.php");
+}
+);
 
 $action = 'action_';
 $action .= (isset($_GET['act'])) ? $_GET['act'] : 'index';

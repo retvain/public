@@ -1,8 +1,11 @@
 <?php
 
-require_once ('model/model.php');
-require_once ('model/c_base.php');
-require_once ('model/c_page.php');
+function __autoload($name) {
+    require_once ("model/$name.php");
+}
+
+include_once ('model/model.php');
+
 
 class c_sidebar_page extends c_page
 {

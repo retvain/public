@@ -33,8 +33,15 @@ textarea
     background: #ccc;
 }
 
+#sidebar
+{
+    float: left;
+    margin-right: 20px;
+}
+
 #content
 {
+    overflow: hidden;
     margin: 5px;
     padding: 10px;
     border: 1px dotted #999;

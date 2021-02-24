@@ -5,10 +5,10 @@ require_once ('model/c_sidebar_page.php');
 $action = 'action_';
 $action .= (isset($_GET['act'])) ? $_GET['act'] : 'index';
 
-switch ($_GET['act'])
+switch ($_GET['c'])
 {
-    case 'contacts':
-        $controller = new c_page();
+    case 'news':
+        $controller = new c_sidebar_page();
         break;
     case 'page':
         $controller = new c_page();

@@ -11,35 +11,13 @@ class c_sidebar_page extends c_page
     function __construct()
     {
         parent::__construct();
+        $this->left = $this->Template('template/v_left.php');
     }
 
-    public function action_index()
+    public function render()
     {
-        $this->title .= '::чтение';
-        $text = text_get();
-        $this->content = $this->Template('template/v_index.php', array('text' => $text));
+        $vars = array('title' => $this->title, 'content' => $this->content, 'left' => $this->left);
+        $page = $this->Template('template/v_main.php', $vars);
+        echo $page;
     }
-
-    public function action_contacts()
-    {
-        $this->title .= '::обратная связь';
-        $this->content = "Наши контакты тут!";
-    }
-
-    public function action_edit ()
-    {
-        $this->title .= '::редактирование';
-
-        if($this->isPost())
-        {
-            text_set($_POST['text']);
-            header('location: index.php');
-            exit();
-        }
-
-        $text = text_get();
-        $this->content = $this->Template('template/v_edit.php', array('text' => $text));
-
-    }
-
 }

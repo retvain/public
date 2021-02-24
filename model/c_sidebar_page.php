@@ -1,10 +1,13 @@
 <?php
 
-function __autoload($name) {
+//Автоподгрузка файлов с классами
+spl_autoload_register(function ($name)
+{
     require_once ("model/$name.php");
 }
+);
 
-include_once ('model/model.php');
+require_once  ('model/model.php');
 
 
 class c_sidebar_page extends c_page

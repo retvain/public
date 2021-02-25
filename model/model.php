@@ -1,6 +1,7 @@
 <?php
 //PDO для работы с БД
 
+
 class database
 {
     private $link;
@@ -64,138 +65,150 @@ class Article
     }
 }
 
+class m_model {
+    private $table;
+    private $key;
+
+    public function __construct($table, $key)
+    {
+        $this->table = $table;
+        $this->key = $key;
+    }
+
 //Функция чтения из файла
-function text_get()
-{
-    return file_get_contents('data/text.txt');
-}
+    public static function text_get()
+    {
+        return file_get_contents('data/text.txt');
+    }
 
 //Функция записи в файл
-function text_set($text)
-{
-    return file_put_contents('data/text.txt', $text);
-}
+    public static function text_set($text)
+    {
+        return file_put_contents('data/text.txt', $text);
+    }
 
 
 //Список всех статей
 
-function articles_get_all($link)
-{
-    //Запрос.
-    $query = "SELECT * FROM articles ORDER BY id_article DESC";
-    $result = mysqli_query($link, $query);
+    public static function all($link)
+    {
+        //Запрос.
+        $query = "SELECT * FROM articles ORDER BY id_article DESC";
+        $result = mysqli_query($link, $query);
 
-    if (!$result)
-        return (mysqli_error());
+        if (!$result)
+            return (mysqli_error());
 
-    //Извлечение из БД
-    $n = mysqli_num_rows($result);
-    $articles = array();
+        //Извлечение из БД
+        $n = mysqli_num_rows($result);
+        $articles = array();
 
-    for ($i = 0; $i < $n; $i++) {
-        $articles[] = mysqli_fetch_assoc($result);
+        for ($i = 0; $i < $n; $i++) {
+            $articles[] = mysqli_fetch_assoc($result);
+        }
+
+        return $articles;
+
     }
 
-    return $articles;
-
-}
-
 //Конкретная статья
-function articles_get_by_id($link, $id_article)
-{
-    //защита от sql инъекции
-    $id_article = (int)$id_article;
-    $query = "SELECT * FROM articles WHERE id_article='$id_article' ";
-    $result = mysqli_query($link, $query);
+    public static function get($id)
+    {
+        //защита от sql инъекции
+        $id_article = (int)$id_article;
+        $query = "SELECT * FROM $this->table WHERE $this->key ='$id' ";
+        $result = mysqli_query($link, $query);
 
-    //Проверка
-    if (!$result)
-        return mysqli_error();
+        //Проверка
+        if (!$result)
+            return mysqli_error();
 
-    return mysqli_fetch_assoc($result);
+        return mysqli_fetch_assoc($result);
 
-}
+    }
 
 //Добавить статью
-function articles_new($link, $title, $content)
-{
-    //Подготовка
-    $title = trim($title);
-    $content = trim($content);
+    public static function new($link, $title, $content)
+    {
+        //Подготовка
+        $title = trim($title);
+        $content = trim($content);
 
-    //Проверка
-    if ($title == '' or $content == '') return false;
+        //Проверка
+        if ($title == '' or $content == '') return false;
 
-    //Запрос
-    $t = "INSERT INTO articles (title, content) VALUES ('%s', '%s')";
+        //Запрос
+        $t = "INSERT INTO articles (title, content) VALUES ('%s', '%s')";
 
-    $query = sprintf($t, mysqli_real_escape_string($title), mysqli_real_escape_string($content));
+        $query = sprintf($t, mysqli_real_escape_string($title), mysqli_real_escape_string($content));
 
-    $result = mysqli_query($link, $query);
+        $result = mysqli_query($link, $query);
 
-    //Проверка запроса
-    if (!$result)
-        die(mysqli_error());
+        //Проверка запроса
+        if (!$result)
+            die(mysqli_error());
 
-    return true;
-}
+        return true;
+    }
 
 //Изменить статью
-function articles_edit($link, $id_article, $title, $content)
-{
+    public static function edit($link, $id_article, $title, $content)
+    {
 
-    //Защита
-    $id_article = (int)$id_article;
-    $title = mysqli_real_escape_string(trim($title));
-    $content = mysqli_real_escape_string(trim($content));
+        //Защита
+        $id_article = (int)$id_article;
+        $title = mysqli_real_escape_string(trim($title));
+        $content = mysqli_real_escape_string(trim($content));
 
-    //Запрос
-    $t = "UPDATE articles SET (title, content) VALUES ('%s', '%s') WHERE id_article = '$id_article'";
-    $query = sprintf($t, $title, $content);
-    $result = mysqli_query($link, $query);
+        //Запрос
+        $t = "UPDATE articles SET (title, content) VALUES ('%s', '%s') WHERE id_article = '$id_article'";
+        $query = sprintf($t, $title, $content);
+        $result = mysqli_query($link, $query);
 
-    if (!$result)
-        return false;
+        if (!$result)
+            return false;
 
-    else
-        return true;
+        else
+            return true;
 
-}
+    }
 
 //Удалить статью
-function articles_delete($link, $id_article)
-{
-    //Защита
-    $id_article = (int)$id_article;
+    public static function delete($link, $id_article)
+    {
+        //Защита
+        $id_article = (int)$id_article;
 
-    //Запрос
-    $query = "DELETE FROM articles WHERE id_articles = '$id_article'";
-    $result = mysqli_query($link, $query);
+        //Запрос
+        $query = "DELETE FROM articles WHERE id_articles = '$id_article'";
+        $result = mysqli_query($link, $query);
 
-    if (!$result)
-        return false;
-    else
-        return true;
-}
+        if (!$result)
+            return false;
+        else
+            return true;
+    }
 
 //Короткое описание статьи
-function articles_intro($article)
-{
-    $article = mb_substr($article, 0, 28, 'UTF-8');
-    return $article;
-}
+    public static function intro($article)
+    {
+        $article = mb_substr($article, 0, 28, 'UTF-8');
+        return $article;
+    }
 
 //Подключение шаблона
-function view_include($fileName, $vars = array())
-{
-    //Устанавливаем переменные
-    foreach ($vars as $key => $value) {
-        $$key = $value;
+    public static function include($fileName, $vars = array())
+    {
+        //Устанавливаем переменные
+        foreach ($vars as $key => $value) {
+            $$key = $value;
 
-        //Генерируем HTML в строку
-        ob_start();
-        include $fileName;
-        return ob_get_clean();
+            //Генерируем HTML в строку
+            ob_start();
+            include $fileName;
+            return ob_get_clean();
+        }
+
     }
 
 }

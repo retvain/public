@@ -5,13 +5,39 @@
 require_once ("model/model.php");
 
 //Автоподгрузка файлов с классами
-spl_autoload_register(function ($name)
+/*spl_autoload_register(function ($name)
 {
     require_once ("model/$name.php");
 }
-);
+);*/
 
-class c_articles extends m_model
+class c_articles extends c_base
+{
+    //Конструктор
+
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function action_all()
+    {
+        $this->title = $this->title.':: Все статьи';
+
+
+        $articles = m_articles::instance()->all();
+
+        foreach ($this->articles as $key => $article)
+        {
+            $articles[$key]['content'] = articles_intro($articles['content']);
+        }
+
+        $this->content = $this->Template('template/v_articles.php');
+    }
+
+}
+
+/*class c_articles extends m_model
 {
     //Конструктор
 
@@ -33,4 +59,4 @@ class c_articles extends m_model
         $this->content = $this->Template('template/v_articles.php');
     }
 
-}
+}*/
